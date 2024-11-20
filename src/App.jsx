@@ -12,7 +12,6 @@ const initialFormData = {
 function App() {
 
   const [ricette, setRicette] = useState({})
-  const [allRicette, setAllRicette] = useState(ricette)
   const [formData, setFormDeta] = useState(initialFormData)
 
   // const [newRicetta, setNewRicetta] = ({})
@@ -25,18 +24,16 @@ function App() {
         setRicette(data)
       })
   }
-  console.log(allRicette);
   function handleFormSubmit(e) {
     e.preventDefault()
     console.log(formData);
-
     const newRicetta = {
       id: Date.now(),
       ...formData
     }
     console.log(newRicetta);
 
-    setAllRicette([
+    setRicette([
       newRicetta,
       ...ricette
     ])
@@ -82,7 +79,7 @@ function App() {
       </section>
       <section>
         <div className="container">
-          {allRicette.data ? allRicette.data.map(ricetta => (
+          {ricette.data ? ricette.data.map(ricetta => (
             <div key={ricetta.id} className='card'>
               <h3>{ricetta.title}</h3>
               <p>{ricetta.content}</p>
