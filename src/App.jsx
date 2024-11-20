@@ -11,7 +11,7 @@ const initialFormData = {
 
 function App() {
 
-  const [ricette, setRicette] = useState({})
+  const [ricette, setRicette] = useState([])
   const [formData, setFormDeta] = useState(initialFormData)
 
   // const [newRicetta, setNewRicetta] = ({})
