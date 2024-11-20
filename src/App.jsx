@@ -28,7 +28,7 @@ function App() {
     e.preventDefault()
     console.log(formData);
     const newRicetta = {
-      id: Date.now(),
+      slug: Date.now(),
       ...formData
     }
     console.log(newRicetta);
@@ -80,9 +80,15 @@ function App() {
       <section>
         <div className="container">
           {ricette ? ricette.map(ricetta => (
-            <div key={ricetta.id} className='card'>
+            <div key={ricetta.title} className='card'>
               <h3>{ricetta.title}</h3>
-              <p>{ricetta.content}</p>
+              <img src='{}' alt="" />
+              <p className='description'>{ricetta.content}</p>
+              <div className='tags'>
+
+                {ricetta.tags.map((tag, index) => <div key={index} className='tag' >{tag}</div>)}
+              </div>
+
             </div>
 
           )) :

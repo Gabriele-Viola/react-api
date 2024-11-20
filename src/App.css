@@ -1,0 +1,30 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: calc(100%);
+  padding: 1rem;
+
+  .description {
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    justify-content: space-evenly;
+
+    .tag {
+      margin-bottom: .25rem;
+    }
+  }
+}
