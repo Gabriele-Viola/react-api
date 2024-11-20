@@ -12,7 +12,9 @@ const initialFormData = {
 function App() {
 
   const [ricette, setRicette] = useState({})
-  const [formData, setFormDeta] = useState()
+  const [allRicette, setAllRicette] = useState(ricette)
+  const [formData, setFormDeta] = useState(initialFormData)
+
   // const [newRicetta, setNewRicetta] = ({})
 
   function fetchData(url = `${api_server}${api_endpoint}`) {
@@ -23,19 +25,37 @@ function App() {
         setRicette(data)
       })
   }
+  console.log(allRicette);
   function handleFormSubmit(e) {
     e.preventDefault()
-    console.log('form state');
+    console.log(formData);
+
+    const newRicetta = {
+      id: Date.now(),
+      ...formData
+    }
+    console.log(newRicetta);
+
+    setAllRicette([
+      newRicetta,
+      ...ricette
+    ])
 
   }
-  function handleFormfil(e) {
+  function handleFormfield(e) {
+    const value =
+      e.target.type === 'checkbox' ?
+        e.target.checked : e.target.value
+    setFormDeta({
+      ...formData,
+      [e.target.name]: value
+    })
+
 
   }
   useEffect(fetchData, [])
 
-  // function handleForm(e) {
 
-  // }
 
   return (
     <>
@@ -43,16 +63,26 @@ function App() {
       <section className='operationSect'>
         <form onSubmit={handleFormSubmit}>
           <label htmlFor="title">Nome ricetta</label>
-          <input type="text" name='title' id='title' />
+          <input
+            type="text"
+            name='title'
+            id='title'
+            value={formData.title}
+            onChange={handleFormfield} />
           <label htmlFor="content">Descrizione</label>
-          <input type="text" name='content' id='content' />
+          <input
+            type="text"
+            name='content'
+            id='content'
+            value={formData.content}
+            onChange={handleFormfield} />
           <button type='submit'>Aggiungi ricetta</button>
         </form>
 
       </section>
       <section>
         <div className="container">
-          {ricette.data ? ricette.data.map(ricetta => (
+          {allRicette.data ? allRicette.data.map(ricetta => (
             <div key={ricetta.id} className='card'>
               <h3>{ricetta.title}</h3>
               <p>{ricetta.content}</p>
