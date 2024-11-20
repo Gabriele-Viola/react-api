@@ -21,7 +21,7 @@ function App() {
       .then(resp => resp.json())
       .then(data => {
         console.log(data);
-        setRicette(data)
+        setRicette(data.data)
       })
   }
   function handleFormSubmit(e) {
@@ -79,7 +79,7 @@ function App() {
       </section>
       <section>
         <div className="container">
-          {ricette.data ? ricette.data.map(ricetta => (
+          {ricette ? ricette.map(ricetta => (
             <div key={ricetta.id} className='card'>
               <h3>{ricetta.title}</h3>
               <p>{ricetta.content}</p>
