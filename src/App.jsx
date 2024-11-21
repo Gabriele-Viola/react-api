@@ -15,7 +15,8 @@ function App() {
 
   const [ricette, setRicette] = useState([])
   const [formData, setFormData] = useState(initialFormData)
-  const [allTags, setAllTags] = ([])
+  const [allTags, setAllTags] = useState([])
+  const [checktags, setTags] = useState(initialFormData.tags)
 
 
 
@@ -44,17 +45,33 @@ function App() {
     ])
 
   }
+
+
   function handleFormfield(e) {
+    const { type, name, id, checked, value } = e.target;
 
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    if (type === 'checkbox') {
+      setTags((prevTags) =>
+        checked ? [...prevTags, id] : prevTags.filter(tag => tag !== id)
+      );
 
-    setFormData({
-      ...formData,
-      [e.target.name]: value
-    })
-
-
+      setFormData({
+        ...formData,
+        tags: checked
+          ? [...formData.tags, id]
+          : formData.tags.filter(tag => tag !== id),
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   }
+
+
+
+
   useEffect(fetchData, [])
 
 
@@ -90,15 +107,14 @@ function App() {
                 onChange={handleFormfield} />
             </div>
             <div className="checktags">
-              <div className="inputstyle">
-                <label htmlFor="dolci">Dolci {allTags}</label>
-                <input type="checkbox" name="tags" id="dolci" value={formData.tags} onChange={handleFormfield} />
-              </div>
 
-              <div className="inputstyle">
-                <label htmlFor='torte'>torte</label>
-                <input type="checkbox" name="tags" id='torte' value={formData.tags} onChange={handleFormfield} />
-              </div>
+              {allTags.map((tag, index) =>
+
+                <div key={index} className="inputstyle">
+                  <label htmlFor={tag}>{tag}</label>
+                  <input type="checkbox" name={tag} id={tag} value={formData.name} onChange={handleFormfield} />
+                </div>
+              )}
 
 
             </div>
@@ -110,7 +126,7 @@ function App() {
           {ricette ? ricette.map(ricetta => (
             <div key={ricetta.title} className='card'>
               <h3>{ricetta.title}</h3>
-              <img src='{}' alt="" />
+              <img src={`${api_server}/imgs/${ricetta.image}`} alt="" />
               <p className='description'>{ricetta.content}</p>
               <div className='tags'>
 
