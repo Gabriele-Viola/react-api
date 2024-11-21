@@ -6,22 +6,27 @@ const api_endpoint = '/ricette'
 
 const initialFormData = {
   title: '',
-  content: ''
+  content: '',
+  images: '',
+  tags: [],
 }
 
 function App() {
 
   const [ricette, setRicette] = useState([])
-  const [formData, setFormDeta] = useState(initialFormData)
+  const [formData, setFormData] = useState(initialFormData)
+  const [allTags, setAllTags] = ([])
 
-  // const [newRicetta, setNewRicetta] = ({})
+
 
   function fetchData(url = `${api_server}${api_endpoint}`) {
     fetch(url)
       .then(resp => resp.json())
       .then(data => {
-        console.log(data);
+        console.log(data.data);
         setRicette(data.data)
+        setAllTags([...new Set(data.data.flatMap(item => Object.values(item).filter(value => Array.isArray(value)).flat()))])
+
       })
   }
   function handleFormSubmit(e) {
@@ -40,10 +45,10 @@ function App() {
 
   }
   function handleFormfield(e) {
-    const value =
-      e.target.type === 'checkbox' ?
-        e.target.checked : e.target.value
-    setFormDeta({
+
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+
+    setFormData({
       ...formData,
       [e.target.name]: value
     })
@@ -56,29 +61,52 @@ function App() {
 
   return (
     <>
-      <h1>Le mie ricette</h1>
-      <section className='operationSect'>
-        <form onSubmit={handleFormSubmit}>
-          <label htmlFor="title">Nome ricetta</label>
-          <input
-            type="text"
-            name='title'
-            id='title'
-            value={formData.title}
-            onChange={handleFormfield} />
-          <label htmlFor="content">Descrizione</label>
-          <input
-            type="text"
-            name='content'
-            id='content'
-            value={formData.content}
-            onChange={handleFormfield} />
-          <button type='submit'>Aggiungi ricetta</button>
-        </form>
+      <header>
+        <h1>Le mie ricette</h1>
 
-      </section>
-      <section>
-        <div className="container">
+      </header>
+      <div className="container">
+        <section className='operationSect'>
+          <form onSubmit={handleFormSubmit}>
+            <div className="inputstyle">
+              <label htmlFor="title">Nome ricetta</label>
+              <input
+                type="text"
+                name='title'
+                id='title'
+                value={formData.title}
+                onChange={handleFormfield} />
+            </div>
+            <div className="inputstyle">
+
+              <label htmlFor="content">Descrizione</label>
+              <textarea
+                type="textarea"
+                rows="5"
+                cols="50"
+                name='content'
+                id='content'
+                value={formData.content}
+                onChange={handleFormfield} />
+            </div>
+            <div className="checktags">
+              <div className="inputstyle">
+                <label htmlFor="dolci">Dolci {allTags}</label>
+                <input type="checkbox" name="tags" id="dolci" value={formData.tags} onChange={handleFormfield} />
+              </div>
+
+              <div className="inputstyle">
+                <label htmlFor='torte'>torte</label>
+                <input type="checkbox" name="tags" id='torte' value={formData.tags} onChange={handleFormfield} />
+              </div>
+
+
+            </div>
+            <button type='submit'>Aggiungi ricetta</button>
+          </form>
+
+        </section>
+        <section>
           {ricette ? ricette.map(ricetta => (
             <div key={ricetta.title} className='card'>
               <h3>{ricetta.title}</h3>
@@ -93,9 +121,9 @@ function App() {
 
           )) :
             <p>Nessuna ricetta trovata</p>}
-        </div>
 
-      </section>
+        </section>
+      </div>
 
     </>
   )

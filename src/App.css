@@ -11,6 +11,16 @@
   flex-wrap: wrap;
 }
 
+.operationSect {
+  .imputstyle {
+
+
+    label {
+      margin-bottom: .25rem;
+    }
+  }
+}
+
 .card {
   width: calc(100%);
   padding: 1rem;
