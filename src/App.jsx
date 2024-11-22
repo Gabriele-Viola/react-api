@@ -4,6 +4,7 @@ import './App.css'
 const api_server = 'http://localhost:3000'
 const api_endpoint = '/ricette'
 
+
 const initialFormData = {
   title: '',
   content: '',
@@ -32,18 +33,27 @@ function App() {
   }
   function handleFormSubmit(e) {
     e.preventDefault()
+
     console.log(formData);
     const newRicetta = {
       slug: Date.now(),
       ...formData
     }
     console.log(newRicetta);
+    fetch('http://localhost:3000/ricette', {
+      method: 'POST',
+      body: JSON.stringify(newRicetta),
+      headers: {
+        'Content-Type': 'Application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('success:', data);
 
-    setRicette([
-      newRicetta,
-      ...ricette
-    ])
-
+        setRicette(data.data)
+      })
+    setFormData(initialFormData)
   }
 
 
@@ -94,6 +104,17 @@ function App() {
                 value={formData.title}
                 onChange={handleFormfield} />
             </div>
+
+            <div className="inputstyle">
+              <label htmlFor="image">Immagine</label>
+              <input
+                type="text"
+                name='images'
+                id='images'
+                value={formData.images}
+                onChange={handleFormfield} />
+            </div>
+
             <div className="inputstyle">
 
               <label htmlFor="content">Descrizione</label>

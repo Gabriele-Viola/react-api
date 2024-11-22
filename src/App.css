@@ -29,6 +29,11 @@ header {
     width: 100%;
 
     margin: 1rem 0;
+
+    label {
+      margin-bottom: .25rem;
+      display: block;
+    }
   }
 
   .imputstyle {
@@ -36,8 +41,10 @@ header {
     margin: 1rem 0;
 
 
-    label {
-      margin-bottom: .25rem;
+
+
+    input {
+      display: block;
     }
   }
 }
