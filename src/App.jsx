@@ -8,7 +8,7 @@ const api_endpoint = '/ricette'
 const initialFormData = {
   title: '',
   content: '',
-  images: '',
+  image: '',
   tags: [],
 }
 
@@ -40,6 +40,8 @@ function App() {
       ...formData
     }
     console.log(newRicetta);
+
+
     fetch('http://localhost:3000/ricette', {
       method: 'POST',
       body: JSON.stringify(newRicetta),
@@ -109,9 +111,9 @@ function App() {
               <label htmlFor="image">Immagine</label>
               <input
                 type="text"
-                name='images'
-                id='images'
-                value={formData.images}
+                name='image'
+                id='image'
+                value={formData.image}
                 onChange={handleFormfield} />
             </div>
 
