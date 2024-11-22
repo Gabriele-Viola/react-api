@@ -9,16 +9,46 @@
   margin: auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+header {
+  text-align: center;
+  padding: 1rem 0;
 }
 
 .operationSect {
+  width: 100%;
+  margin: 0;
+
+
+  .formstyle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+
+    margin: 1rem 0;
+  }
+
   .imputstyle {
+    width: 50%;
+    margin: 1rem 0;
 
 
     label {
       margin-bottom: .25rem;
     }
   }
+}
+
+
+
+.checktags {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 .card {

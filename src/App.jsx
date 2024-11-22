@@ -84,7 +84,7 @@ function App() {
       </header>
       <div className="container">
         <section className='operationSect'>
-          <form onSubmit={handleFormSubmit}>
+          <form className='formstyle' onSubmit={handleFormSubmit}>
             <div className="inputstyle">
               <label htmlFor="title">Nome ricetta</label>
               <input
@@ -111,8 +111,8 @@ function App() {
               {allTags.map((tag, index) =>
 
                 <div key={index} className="inputstyle">
-                  <label htmlFor={tag}>{tag}</label>
                   <input type="checkbox" name={tag} id={tag} value={formData.name} onChange={handleFormfield} />
+                  <label htmlFor={tag}>{tag}</label>
                 </div>
               )}
 
