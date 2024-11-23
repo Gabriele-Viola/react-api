@@ -3,7 +3,7 @@ import './App.css'
 import AppCard from './Components/AppCard'
 
 const api_server = 'http://localhost:3000'
-const api_endpoint = '/ricette'
+const api_endpoint = '/ricette/'
 const url = api_server + api_endpoint
 
 const initialFormData = {
@@ -11,7 +11,12 @@ const initialFormData = {
   content: '',
   image: '',
   tags: [],
+  Dolci: false,
+  Torte: false,
 }
+
+
+
 
 function App() {
 
@@ -59,17 +64,7 @@ function App() {
     setFormData(initialFormData)
   }
 
-  // function handleDeleteClick(e) {
-  //   e.preventDefault()
-  //   console.log('click', ricette);
 
-  //   // fetch(url, {
-  //   //   method: 'DELETE',
-  //   //   headers: {
-  //   //     'ContentType': 'application/json'
-  //   //   }
-  //   // })
-  // }
 
   function handleFormfield(e) {
     const { type, name, id, checked, value } = e.target;
@@ -93,7 +88,23 @@ function App() {
     }
   }
 
+  function handleDeleteClick(e) {
+    e.preventDefault()
+    const id = e.target.getAttribute('slug')
 
+    console.log(id);
+
+    fetch(url + id, {
+      method: 'DELETE',
+      headers: {
+        'ContentType': 'application/json'
+      }
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+      })
+  }
 
 
   useEffect(fetchData, [])
@@ -161,7 +172,7 @@ function App() {
           {ricette ? ricette.map(ricetta => (
 
 
-            <AppCard url={url} key={ricetta.title} ricetta={ricetta} server={api_server} handleDeleteClick={() => onDelete(handleDeleteClick)} />
+            <AppCard url={url} key={ricetta.title} ricetta={ricetta} server={api_server} handleDeleteClick={handleDeleteClick} />
             // <div key={ricetta.title} className='card'>
             //   <h3>{ricetta.title}</h3>
             //   <img src={`${api_server}/imgs/${ricetta.image}`} alt="" />
