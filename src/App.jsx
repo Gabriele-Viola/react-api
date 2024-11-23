@@ -92,8 +92,6 @@ function App() {
     e.preventDefault()
     const id = e.target.getAttribute('slug')
 
-    console.log(id);
-
     fetch(url + id, {
       method: 'DELETE',
       headers: {
@@ -101,8 +99,8 @@ function App() {
       }
     }).then(res => res.json())
       .then(data => {
-        console.log(data);
 
+        setRicette(data.data)
       })
   }
 
