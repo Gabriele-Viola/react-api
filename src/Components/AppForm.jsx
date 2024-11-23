@@ -38,9 +38,9 @@ export default function AppForm({ handleFormSubmit, formData, handleFormfield, a
 
                 {allTags.map((tag, index) =>
 
-                    <div key={index} className="inputstyle">
-                        <input type="checkbox" name={tag} id={tag} checked={formData.tags.includes(tag)} value={formData.name} onChange={handleFormfield} />
-                        <label htmlFor={tag}>{tag}</label>
+                    <div key={index} className="inputstyletags">
+                        <input className='tagcheck' type="checkbox" name={tag} id={tag} checked={formData.tags.includes(tag)} value={formData.name} onChange={handleFormfield} />
+                        <label className='tagLabel' htmlFor={tag}>{tag}</label>
                     </div>
                 )}
 

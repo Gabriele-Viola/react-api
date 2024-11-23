@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: rgb(255, 239, 186);
+}
+
 .container {
   width: 80%;
   margin: auto;
@@ -25,30 +29,38 @@ header {
   .formstyle {
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
     justify-content: space-around;
     width: 100%;
-
     margin: 1rem 0;
+
+
 
     label {
-      margin-bottom: .25rem;
+      margin-bottom: .5rem;
       display: block;
     }
   }
 
-  .imputstyle {
+
+  .inputstyletags {
+    position: relative;
     width: 50%;
-    margin: 1rem 0;
+    display: flex;
 
-
-
-
-    input {
-      display: block;
+    .tagcheck {
+      position: absolute;
+      right: 0%;
     }
-  }
-}
 
+    .tagLabel {
+      text-align: center;
+    }
+
+
+  }
+
+}
 
 
 .checktags {
@@ -59,11 +71,31 @@ header {
 }
 
 .card {
-  width: calc(100%);
-  padding: 1rem;
+  width: 80%;
+  margin: 1rem auto;
+  background-color: beige;
+  border-radius: 1rem;
+
+  h3 {
+    text-align: center;
+    width: 100%;
+    padding: .75rem 0;
+  }
+
+  .imagcont {
+    width: 50%;
+    float: left;
+    margin-right: 1rem;
+  }
+
+  img {
+    max-width: 100%;
+    object-fit: cover;
+  }
 
   .description {
     margin-bottom: 1rem;
+
   }
 
   .tags {
