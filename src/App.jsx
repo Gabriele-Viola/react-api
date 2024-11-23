@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import AppCard from './Components/AppCard'
+import AppForm from './Components/AppForm'
 
 const api_server = 'http://localhost:3000'
 const api_endpoint = '/ricette/'
@@ -11,8 +12,7 @@ const initialFormData = {
   content: '',
   image: '',
   tags: [],
-  Dolci: false,
-  Torte: false,
+  checked: false
 }
 
 
@@ -31,12 +31,13 @@ function App() {
     fetch(url)
       .then(resp => resp.json())
       .then(data => {
-        console.log(data.data);
+
         setRicette(data.data)
         setAllTags([...new Set(data.data.flatMap(item => Object.values(item).filter(value => Array.isArray(value)).flat()))])
 
       })
   }
+
   function handleFormSubmit(e) {
     e.preventDefault()
 
@@ -63,8 +64,6 @@ function App() {
       })
     setFormData(initialFormData)
   }
-
-
 
   function handleFormfield(e) {
     const { type, name, id, checked, value } = e.target;
@@ -104,7 +103,6 @@ function App() {
       })
   }
 
-
   useEffect(fetchData, [])
 
 
@@ -117,71 +115,11 @@ function App() {
       </header>
       <div className="container">
         <section className='operationSect'>
-          <form className='formstyle' onSubmit={handleFormSubmit}>
-            <div className="inputstyle">
-              <label htmlFor="title">Nome ricetta</label>
-              <input
-                type="text"
-                name='title'
-                id='title'
-                value={formData.title}
-                onChange={handleFormfield} />
-            </div>
-
-            <div className="inputstyle">
-              <label htmlFor="image">Immagine</label>
-              <input
-                type="text"
-                name='image'
-                id='image'
-                value={formData.image}
-                onChange={handleFormfield} />
-            </div>
-
-            <div className="inputstyle">
-
-              <label htmlFor="content">Descrizione</label>
-              <textarea
-                type="textarea"
-                rows="5"
-                cols="50"
-                name='content'
-                id='content'
-                value={formData.content}
-                onChange={handleFormfield} />
-            </div>
-            <div className="checktags">
-
-              {allTags.map((tag, index) =>
-
-                <div key={index} className="inputstyle">
-                  <input type="checkbox" name={tag} id={tag} value={formData.name} onChange={handleFormfield} />
-                  <label htmlFor={tag}>{tag}</label>
-                </div>
-              )}
-
-
-            </div>
-            <button type='submit'>Aggiungi ricetta</button>
-          </form>
-
+          <AppForm handleFormSubmit={handleFormSubmit} formData={formData} handleFormfield={handleFormfield} allTags={allTags} />
         </section>
         <section>
           {ricette ? ricette.map(ricetta => (
-
-
             <AppCard url={url} key={ricetta.title} ricetta={ricetta} server={api_server} handleDeleteClick={handleDeleteClick} />
-            // <div key={ricetta.title} className='card'>
-            //   <h3>{ricetta.title}</h3>
-            //   <img src={`${api_server}/imgs/${ricetta.image}`} alt="" />
-            //   <p className='description'>{ricetta.content}</p>
-            //   <div className='tags'>
-
-            //     {ricetta.tags.map((tag, index) => <div key={index} className='tag' >{tag}</div>)}
-            //   </div>
-            //   <button onClick={handleDeleteClick}>Delete</button>
-            // </div>
-
           )) :
             <p>Nessuna ricetta trovata</p>}
 
