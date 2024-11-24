@@ -2,7 +2,7 @@ export default function AppForm({ handleFormSubmit, formData, handleFormfield, a
 
     return (
         <form className='formstyle' onSubmit={handleFormSubmit}>
-            <div className="inputstyle">
+            <div className="titleFormStyle">
                 <label htmlFor="title">Nome ricetta</label>
                 <input
                     type="text"
@@ -10,9 +10,7 @@ export default function AppForm({ handleFormSubmit, formData, handleFormfield, a
                     id='title'
                     value={formData.title}
                     onChange={handleFormfield} />
-            </div>
 
-            <div className="inputstyle">
                 <label htmlFor="image">Immagine</label>
                 <input
                     type="text"
@@ -27,26 +25,32 @@ export default function AppForm({ handleFormSubmit, formData, handleFormfield, a
                 <label htmlFor="content">Descrizione</label>
                 <textarea
                     type="textarea"
-                    rows="5"
-                    cols="50"
+                    rows="4"
+                    cols="80"
                     name='content'
                     id='content'
                     value={formData.content}
-                    onChange={handleFormfield} />
+                    onChange={handleFormfield}
+                    placeholder="Descrivi la tua ricetta..." />
             </div>
             <div className="checktags">
 
                 {allTags.map((tag, index) =>
 
                     <div key={index} className="inputstyletags">
-                        <input className='tagcheck' type="checkbox" name={tag} id={tag} checked={formData.tags.includes(tag)} value={formData.name} onChange={handleFormfield} />
-                        <label className='tagLabel' htmlFor={tag}>{tag}</label>
+                        <label className='tagLabel' htmlFor={tag}>{tag}
+
+                            <input className='tagcheck' type="checkbox" name={tag} id={tag} checked={formData.tags.includes(tag)} value={formData.name} onChange={handleFormfield} />
+                        </label>
                     </div>
                 )}
 
 
             </div>
-            <button type='submit'>Aggiungi ricetta</button>
+            <div className="buttoncontain">
+
+                <button type='submit'>Aggiungi ricetta</button>
+            </div>
         </form>
     )
 }

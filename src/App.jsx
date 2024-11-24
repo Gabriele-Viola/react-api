@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import AppCard from './Components/AppCard'
 import AppForm from './Components/AppForm'
-
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.min.css'
 const api_server = 'http://localhost:3000'
 const api_endpoint = '/ricette/'
 const url = api_server + api_endpoint
